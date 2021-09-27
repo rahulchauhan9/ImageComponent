@@ -12,7 +12,7 @@ import {
   PinchGestureHandler,
   PanGestureHandler,
 } from 'react-native-gesture-handler';
-import {DISMISS_BTN} from '../assets/constants';
+import {DISMISS_BTN} from '../assets/constants/constants';
 
 interface Props {
   modalVisible: boolean;
@@ -38,24 +38,29 @@ const ModalView: FC<Props> = props => {
       onRequestClose={() => {
         props.setModalVisible(!props.modalVisible);
       }}>
-      <View style={styles.container}>
+      <View style={styles.modalContainer}>
         <View style={styles.modalView}>
-          <Pressable onPress={() => props.setModalVisible(!props.modalVisible)}>
-            <Text style={styles.modalClose}>{DISMISS_BTN}</Text>
-          </Pressable>
-          <PanGestureHandler onGestureEvent={handlePan}>
-            <PinchGestureHandler
-              onGestureEvent={handlePinch}
-              onHandlerStateChange={handlePinch}>
-              <Animated.Image
-                source={{uri: props.uri}}
-                style={[
-                  styles.image,
-                  {transform: [{scale}, {translateX: valueX}]},
-                ]}
-              />
-            </PinchGestureHandler>
-          </PanGestureHandler>
+          <View style={styles.modalBtn}>
+            <Pressable
+              onPress={() => props.setModalVisible(!props.modalVisible)}>
+              <Text style={styles.modalClose}>{DISMISS_BTN}</Text>
+            </Pressable>
+          </View>
+          <View style={styles.modalContent}>
+            <PanGestureHandler onGestureEvent={handlePan}>
+              <PinchGestureHandler
+                onGestureEvent={handlePinch}
+                onHandlerStateChange={handlePinch}>
+                <Animated.Image
+                  source={{uri: props.uri}}
+                  style={[
+                    styles.image,
+                    {transform: [{scale}, {translateX: valueX}]},
+                  ]}
+                />
+              </PinchGestureHandler>
+            </PanGestureHandler>
+          </View>
         </View>
       </View>
     </Modal>
@@ -70,27 +75,30 @@ const styles = StyleSheet.create({
     width: 300,
   },
   modalView: {
-    margin: 20,
     backgroundColor: 'white',
     borderRadius: 20,
-    padding: 10,
+    padding: 5,
     alignItems: 'center',
     shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
   },
-  container: {
+  modalContainer: {
     flex: 1,
+    marginTop: '10%',
+    marginLeft: '0%',
+    height: '70%',
     justifyContent: 'center',
     alignItems: 'center',
   },
   modalClose: {
     color: 'red',
     marginBottom: 5,
+  },
+  modalBtn: {
+    flex: 1,
+    alignSelf: 'flex-end',
+    zIndex: 1,
+  },
+  modalContent: {
+    flex: 3,
   },
 });

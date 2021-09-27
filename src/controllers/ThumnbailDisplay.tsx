@@ -1,12 +1,8 @@
 import React, {FC} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import ImageWrapper from '../components/ImageWrapper';
 
-interface Props {
-  head: string;
-}
-
-const ThumnbailDisplay: FC<Props> = Props => {
+const ThumnbailDisplay: FC = () => {
   return (
     <View>
       <ImageWrapper />

@@ -1,31 +1,18 @@
-import React, {FC, useRef, useState} from 'react';
+import React, {FC} from 'react';
 import {
   StyleSheet,
-  Text,
   View,
   Modal,
-  Pressable,
   Image,
-  Button,
-  Animated,
+  Dimensions,
+  StatusBar,
+  Text,
 } from 'react-native';
 import ReactNativeZoomableView from '@dudigital/react-native-zoomable-view/src/ReactNativeZoomableView';
-import {DISMISS_BTN} from '../assets/constants';
+import ModalHeader from './ModalHeader';
+import {ZoomableModalInterface} from '../interfaces/ZoomableModalInterface';
 
-interface Props {
-  modalVisible: boolean;
-  setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  uri: string;
-}
-
-const ZoomableModal: FC<Props> = props => {
-  const [valX, setValX] = useState(0);
-  const handleLeft = () => {
-    setValX(oldX => oldX + 90);
-  };
-  const handleRight = () => {
-    setValX(oldX => oldX - 90);
-  };
+const ZoomableModal: FC<ZoomableModalInterface> = props => {
   return (
     <Modal
       animationType="slide"
@@ -34,26 +21,24 @@ const ZoomableModal: FC<Props> = props => {
       onRequestClose={() => {
         props.setModalVisible(!props.modalVisible);
       }}>
-      <View style={styles.container}>
+      <View style={styles.modalContainer}>
         <View style={styles.modalView}>
-          <Pressable onPress={() => props.setModalVisible(!props.modalVisible)}>
-            <Text style={styles.modalClose}>{DISMISS_BTN}</Text>
-          </Pressable>
-          <ReactNativeZoomableView
-            maxZoom={1.5}
-            minZoom={1}
-            zoomStep={0.5}
-            initialZoom={1}
-            bindToBorders={true}
-            captureEvent={true}>
-            <Animated.Image
-              source={{uri: props.uri}}
-              style={[styles.image, {transform: [{rotate: `${valX}deg`}]}]}
+          <View style={styles.header}>
+            <ModalHeader
+              modalVisible={props.modalVisible}
+              setModalVisible={props.setModalVisible}
             />
-          </ReactNativeZoomableView>
-          <View style={styles.modalBtn}>
-            <Button title="<-" onPress={handleLeft} />
-            <Button title="->" onPress={handleRight} />
+          </View>
+          <View style={styles.modalContent}>
+            <ReactNativeZoomableView
+              maxZoom={props.maxZoom}
+              minZoom={1}
+              zoomStep={0.5}
+              initialZoom={1}
+              bindToBorders={true}
+              captureEvent={true}>
+              <Image source={{uri: props.uri}} style={styles.image} />
+            </ReactNativeZoomableView>
           </View>
         </View>
       </View>
@@ -65,28 +50,29 @@ export default ZoomableModal;
 
 const styles = StyleSheet.create({
   image: {
-    height: 300,
-    width: 300,
+    height: Dimensions.get('window').width,
+    width: Dimensions.get('window').width,
   },
   modalView: {
-    margin: 20,
     backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 10,
-    alignItems: 'center',
-    shadowColor: '#000',
   },
-  container: {
-    margin: '20%',
+  modalContainer: {
+    flex: 1,
     height: '70%',
     justifyContent: 'center',
     alignItems: 'center',
   },
   modalClose: {
     color: 'red',
-    marginBottom: 5,
   },
   modalBtn: {
-    flexDirection: 'row',
+    alignSelf: 'flex-end',
+    zIndex: 1,
+  },
+  modalContent: {
+    flex: 1,
+  },
+  header: {
+    zIndex: 1,
   },
 });
