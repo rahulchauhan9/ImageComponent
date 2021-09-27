@@ -1,5 +1,6 @@
 import React, {FC} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import ImageWrapper from '../components/ImageWrapper';
 
 interface Props {
   head: string;
@@ -8,7 +9,7 @@ interface Props {
 const ThumnbailDisplay: FC<Props> = Props => {
   return (
     <View>
-      <Text>{Props.head}</Text>
+      <ImageWrapper />
     </View>
   );
 };
