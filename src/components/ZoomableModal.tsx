@@ -1,21 +1,9 @@
 import React, {FC} from 'react';
-import {
-  StyleSheet,
-  View,
-  Modal,
-  Image,
-  Dimensions,
-  StatusBar,
-  Text,
-} from 'react-native';
+import {StyleSheet, View, Modal, Image, Dimensions} from 'react-native';
 import ReactNativeZoomableView from '@dudigital/react-native-zoomable-view/src/ReactNativeZoomableView';
 import ModalHeader from './ModalHeader';
 import {ZoomableModalInterface} from '../interfaces/ZoomableModalInterface';
 
-// modalVisible: boolean;
-// setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
-// uri: string;
-// maxZoom: number;
 const ZoomableModal: FC<ZoomableModalInterface> = ({
   modalVisible,
   setModalVisible,
