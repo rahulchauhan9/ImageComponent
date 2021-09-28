@@ -7,15 +7,16 @@ import {
   SafeAreaView,
   Dimensions,
 } from 'react-native';
-import {DISMISS_BTN} from '../assets/constants/constants';
-import {PREVIEW_FONT_SIZE as FONT_SIZE} from '../assets/constants/constants';
+import {
+  DISMISS_BTN,
+  PREVIEW_FONT_SIZE as FONT_SIZE,
+} from '../assets/constants/constants';
+import {ModalHeaderInterface} from '../interfaces/ModalHeaderInterface';
 
-interface Props {
-  modalVisible: boolean;
-  setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const ModalHeader: FC<Props> = props => {
+const ModalHeader: FC<ModalHeaderInterface> = ({
+  modalVisible,
+  setModalVisible,
+}) => {
   return (
     <>
       <SafeAreaView style={styles.container}>
@@ -23,7 +24,7 @@ const ModalHeader: FC<Props> = props => {
           <Text style={styles.previewStyles}>Preview</Text>
         </View>
         <View style={styles.dismiss}>
-          <Pressable onPress={() => props.setModalVisible(!props.modalVisible)}>
+          <Pressable onPress={() => setModalVisible(!modalVisible)}>
             <Text style={styles.dismissText}>{DISMISS_BTN}</Text>
           </Pressable>
         </View>

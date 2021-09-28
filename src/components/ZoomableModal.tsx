@@ -12,32 +12,41 @@ import ReactNativeZoomableView from '@dudigital/react-native-zoomable-view/src/R
 import ModalHeader from './ModalHeader';
 import {ZoomableModalInterface} from '../interfaces/ZoomableModalInterface';
 
-const ZoomableModal: FC<ZoomableModalInterface> = props => {
+// modalVisible: boolean;
+// setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
+// uri: string;
+// maxZoom: number;
+const ZoomableModal: FC<ZoomableModalInterface> = ({
+  modalVisible,
+  setModalVisible,
+  uri,
+  maxZoom,
+}) => {
   return (
     <Modal
       animationType="slide"
       transparent={true}
-      visible={props.modalVisible}
+      visible={modalVisible}
       onRequestClose={() => {
-        props.setModalVisible(!props.modalVisible);
+        setModalVisible(!modalVisible);
       }}>
       <View style={styles.modalContainer}>
         <View style={styles.modalView}>
           <View style={styles.header}>
             <ModalHeader
-              modalVisible={props.modalVisible}
-              setModalVisible={props.setModalVisible}
+              modalVisible={modalVisible}
+              setModalVisible={setModalVisible}
             />
           </View>
           <View style={styles.modalContent}>
             <ReactNativeZoomableView
-              maxZoom={props.maxZoom}
+              maxZoom={maxZoom}
               minZoom={1}
               zoomStep={0.5}
               initialZoom={1}
               bindToBorders={true}
               captureEvent={true}>
-              <Image source={{uri: props.uri}} style={styles.image} />
+              <Image source={{uri: uri}} style={styles.image} />
             </ReactNativeZoomableView>
           </View>
         </View>
