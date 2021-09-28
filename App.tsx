@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Text} from 'react-native';
 import ThumnbailDisplay from './src/controllers/ThumnbailDisplay';
 import SplashScreen from 'react-native-splash-screen';
 
